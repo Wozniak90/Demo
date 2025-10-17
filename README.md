@@ -205,7 +205,7 @@ END-OF-SELECTION.
 
 ---
 
-## 🧍‍♂️ AUTHORITY-CHECK
+## 🧍‍♂️ AUTHORITY-CHECK - optional
 
 - `AUTHORITY-CHECK OBJECT 'S_TABU_NAM' ID 'TABLE' FIELD 'ZDEMO_COURSE'`
   - `SY-SUBRC = 0` → oprávnění existuje  
