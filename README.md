@@ -154,6 +154,7 @@ Vytvoř Fiori/UI5 aplikaci nad vytvořenou službou.
 
 ---
 ## 6️⃣ Shrnutí
+
 Krok	Cíl	Výsledek
 1	Z-tabulka v SE11	Základní datový model
 2	Report s CRUD logikou	Funkční CRUD přes GUI
