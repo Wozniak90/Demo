@@ -1,327 +1,347 @@
-# Demo 
-Demo cvičení - place pro dev hrátky
----
----
----
-# 🧑‍🏫 Lekce: Od Z-tabulky po OData službu
+🧩 Demo
 
-## Cíl
+Demo cvičení — prostor pro vývojářské hrátky
 
-Naučit se vytvořit vlastní databázovou tabulku.
+🧑‍🏫 Lekce: Od Z-tabulky po OData službu
+🎯 Cíl
 
-Postavit nad ní report, který umožňuje čtení, vytvoření, změnu i smazání záznamu.
+Naučit se vytvořit vlastní databázovou tabulku
 
-Stejnou logiku implementovat do OData služby (CRUD) v SEGW.
+Postavit nad ní report, který umožňuje čtení, vytvoření, změnu i smazání záznamu
 
----
-## 1️⃣ Vytvoření Z-tabulky (SE11)
+Stejnou logiku implementovat do OData služby (CRUD) v SEGW
 
-### Postup:
+1️⃣ Vytvoření Z-tabulky (SE11)
+Postup:
 
-Vytvoř novou tabulku, např. ZDEMO_COURSE.
+Vytvoř novou tabulku, např. ZDEMO_COURSE
 
-Nastav Delivery class A a povol Display/Maintenance Allowed.
+Nastav:
+
+Delivery class: A
+
+Display/Maintenance Allowed: Ano
 
 Přidej pole:
 
-Klient MANDT (key)
+MANDT – klient (key)
 
-ID kurzu COURSE_ID (key)
+COURSE_ID – ID kurzu (key)
 
-Název TITLE
+TITLE – název
 
-Stav STATUS (např. A=Active, I=Inactive)
+STATUS – např. A=Active, I=Inactive
 
-Datum vytvoření CREATED_AT
+CREATED_AT – datum vytvoření
 
-Datum změny CHANGED_AT
+CHANGED_AT – datum změny
 
-Ulož a aktivuj.
+Ulož a aktivuj tabulku
 
-(Volitelné) Vytvoř doménu pro STATUS s pevnými hodnotami.
+(Volitelné) Vytvoř doménu pro STATUS s pevnými hodnotami
 
-Vygeneruj lock object (např. EZDEMO_COURSE) pro zamykání záznamů.
+Vygeneruj lock object (např. EZDEMO_COURSE) pro zamykání záznamů
 
----
-## 2️⃣ Report s výběrovou obrazovkou a CRUD funkcionalitou
+2️⃣ Report s výběrovou obrazovkou a CRUD funkcionalitou
+Cíl
 
-### Cíl:
 Report bude obsahovat výběrovou obrazovku, která umožní:
 
-filtrovat data (READ),
+filtrovat data (READ)
 
-vytvořit záznam (CREATE),
+vytvořit záznam (CREATE)
 
-upravit existující (UPDATE),
+upravit existující (UPDATE)
 
-smazat (DELETE).
+smazat (DELETE)
 
-### Kroky:
+Kroky
 
-Vytvoř report (SE38 nebo ADT).
+Vytvoř nový report (SE38 nebo ADT)
 
 Definuj selekční obrazovku:
 
-výběrové možnosti (SELECT-OPTIONS) pro čtení,
+výběrové možnosti (SELECT-OPTIONS) pro čtení
 
-parametry pro CRUD operace (např. ID, název, status),
+parametry pro CRUD operace (např. ID, název, status)
 
-parametr pro určení operace (R, C, U, D).
+parametr pro určení operace (R, C, U, D)
 
 Přidej pomocné formuláře:
 
-získání timestampu,
+získání timestampu
 
-zamknutí / odemknutí záznamu.
+zamknutí / odemknutí záznamu
 
 Implementuj logiku:
 
-READ – výběr dat z tabulky podle filtrů a zobrazení v ALV,
+READ – výběr dat z tabulky podle filtrů a zobrazení v ALV
 
-CREATE – kontrola existence, vložení nového záznamu,
+CREATE – kontrola existence, vložení nového záznamu
 
-UPDATE – zamknutí, načtení, změna, uvolnění zámku,
+UPDATE – zamknutí, načtení, změna, uvolnění zámku
 
-DELETE – zamknutí, smazání, uvolnění zámku.
+DELETE – zamknutí, smazání, uvolnění zámku
 
 Přidej obsluhu událostí:
 
-AT SELECTION-SCREEN – validace vstupů,
+AT SELECTION-SCREEN – validace vstupů
 
-START-OF-SELECTION – volání správné formy dle typu operace.
+START-OF-SELECTION – volání správné formy dle typu operace
 
-Nakonec zobraz data pomocí ALV (např. třída CL_SALV_TABLE).
+Nakonec zobraz data pomocí ALV (CL_SALV_TABLE)
 
----
-## 3️⃣ OData služba přes SEGW
+3️⃣ OData služba přes SEGW
+Cíl
 
-### Cíl:
 Zpřístupnit stejnou tabulku jako OData službu s CRUD operacemi.
 
-### Postup:
+Postup
 
-Vytvoř nový projekt v SEGW, např. ZDEMO_COURSE_SRV.
+Vytvoř nový projekt v SEGW, např. ZDEMO_COURSE_SRV
 
-Přidej Entity Type Course s vlastnostmi odpovídajícími polím tabulky.
+Přidej Entity Type Course s vlastnostmi odpovídajícími polím tabulky
 
-Vytvoř Entity Set Courses.
+Vytvoř Entity Set Courses
 
-Vygeneruj runtime objekty (MPC/DPC třídy).
+Vygeneruj runtime objekty (MPC/DPC třídy)
 
 V DPC_EXT implementuj CRUD metody:
 
-GET_ENTITYSET – čtení všech záznamů s možností filtrace,
+GET_ENTITYSET – čtení všech záznamů
 
-GET_ENTITY – čtení konkrétního záznamu,
+GET_ENTITY – čtení konkrétního záznamu
 
-CREATE_ENTITY – vytvoření nového,
+CREATE_ENTITY – vytvoření nového záznamu
 
-UPDATE_ENTITY – aktualizace,
+UPDATE_ENTITY – aktualizace záznamu
 
-DELETE_ENTITY – odstranění.
+DELETE_ENTITY – odstranění záznamu
 
-Aktivuj službu v /IWFND/MAINT_SERVICE.
+Aktivuj službu v /IWFND/MAINT_SERVICE
 
-Otestuj CRUD operace pomocí SAP Gateway Clientu nebo Postmanu.
+Otestuj CRUD operace pomocí SAP Gateway Clientu nebo Postmanu
 
----
-## 4️⃣ Best Practices
+4️⃣ Best Practices
 
-Používej novou Open SQL syntaxi (@ před proměnnými).
+Používej novou Open SQL syntaxi (@ před proměnnými)
 
-Vkládej COMMIT WORK pouze při úspěšném DML.
+COMMIT WORK dávej jen po úspěšném DML
 
-Pro změny a mazání vždy zamykej záznamy (ENQUEUE_...).
+Před změnou nebo smazáním záznamu vždy zamykej (ENQUEUE_...)
 
-Přidej AUTHORITY-CHECK před CREATE/UPDATE/DELETE.
+Před CREATE, UPDATE, DELETE proveď AUTHORITY-CHECK
 
-Používej datové typy jako TIMESTAMPL (UTC timestamp).
+Používej datové typy jako TIMESTAMPL (UTC timestamp)
 
-Logiku přesuň do tříd a report nech jen jako UI vrstvu.
+Logiku business vrstvy přesuň do tříd (oddělení UI a logiky)
 
-V OData používej správné výjimky (/IWBEP/CX_MGW_BUSI_EXCEPTION apod.).
+V OData metodách používej výjimky /IWBEP/CX_MGW_BUSI_EXCEPTION
 
----
-## 5️⃣ Rozšíření (volitelné)
+5️⃣ Rozšíření (volitelné)
 
-Přidej search help pro COURSE_ID.
+Přidej search help pro COURSE_ID
 
-Implementuj $count, $orderby, $top, $skip v OData.
+Implementuj $count, $orderby, $top, $skip v OData
 
-Použij ETag pro optimistické zamykání.
+Použij ETag pro optimistické zamykání
 
-Vytvoř Fiori/UI5 aplikaci nad vytvořenou službou.
+Vytvoř Fiori/UI5 aplikaci nad vytvořenou službou
 
----
-## 6️⃣ Shrnutí
+6️⃣ Shrnutí
 
-Krok	Cíl	Výsledek
-1	Z-tabulka v SE11	Základní datový model
-2	Report s CRUD logikou	Funkční CRUD přes GUI
-3	SEGW projekt	OData API s CRUD metodami
-4	Best practices	Správné zamykání, validace, autorizace
-5	Rozšíření	Moderní UI (Fiori, RAP, CDS)
+Krok 1: Z-tabulka v SE11 → základní datový model
+Krok 2: Report s CRUD logikou → funkční CRUD přes GUI
+Krok 3: SEGW projekt → OData API s CRUD metodami
+Krok 4: Best practices → správné zamykání, validace, autorizace
+Krok 5: Rozšíření → moderní UI (Fiori, RAP, CDS)
 
----
----
----
+🧠 ABAP Tahák – CRUD, Selection Screen, ALV, OData
+📋 Základní koncepty
 
-# 🧠 ABAP Tahák – CRUD, Selection Screen, ALV, OData
+Report: Spustitelný program (SE38/ADT)
 
----
-## 📋 Základní koncepty
-Téma	Popis
-Report	Spustitelný program (SE38/ADT), základní forma aplikace v ABAPu.
-FORM	Procedurální blok (subroutine), volán pomocí PERFORM.
-SE11	Nástroj pro práci s tabulkami, datovými typy, strukturami a pohledy.
-SEGW	SAP Gateway Builder – tvorba OData služeb.
-Lock Object (ENQUEUE/DEQUEUE)	Mechanismus zamykání záznamů na úrovni aplikační logiky.
+FORM: Procedurální blok, volán pomocí PERFORM
 
----
-## 🧩 Výběrová obrazovka (Selection Screen)
-Příkaz / prvek	Význam
-PARAMETERS	Definuje jednoduchý vstupní parametr.
-SELECT-OPTIONS	Umožňuje zadat rozsah hodnot (od-do, seznam).
-PARAMETERS ... RADIOBUTTON GROUP	Definuje přepínače (radio buttony).
-AT SELECTION-SCREEN	Událost pro validaci vstupů.
-START-OF-SELECTION	Spouští hlavní logiku programu.
+SE11: Datové typy, tabulky, pohledy
 
----
-## Příklad struktury událostí:
+SEGW: Gateway Builder – tvorba OData služeb
+
+Lock Object: Mechanismus zamykání záznamů (ENQUEUE/DEQUEUE)
+
+🧩 Výběrová obrazovka (Selection Screen)
+
+PARAMETERS – jednoduchý vstupní parametr
+
+SELECT-OPTIONS – rozsah hodnot (od–do, seznam)
+
+RADIOBUTTON GROUP – přepínače
+
+AT SELECTION-SCREEN – validace vstupů
+
+START-OF-SELECTION – spuštění hlavní logiky
+
+Typická struktura událostí:
 
 INITIALIZATION.
 AT SELECTION-SCREEN.
 START-OF-SELECTION.
 END-OF-SELECTION.
 
----
-## 🧮 Práce s databází (Open SQL)
-Příkaz	Význam
-SELECT ... INTO TABLE	Načtení více řádků.
-SELECT SINGLE ... INTO	Načtení jednoho řádku.
-INSERT INTO ... FROM	Vložení nového záznamu.
-UPDATE ... FROM	Aktualizace existujícího záznamu.
-DELETE FROM ... WHERE	Smazání záznamu.
-MODIFY ... FROM	Vložení nebo update podle klíče.
-COMMIT WORK	Potvrzení transakce.
-ROLLBACK WORK	Zrušení transakce.
+🧮 Práce s databází (Open SQL)
 
----
-## Tipy:
+SELECT ... INTO TABLE – čtení více řádků
 
-Používej moderní syntaxi s @ (host proměnné).
+SELECT SINGLE ... INTO – čtení jednoho řádku
 
-Pro typovanou konstrukci použij VALUE #( ) nebo VALUE tablename( ).
+INSERT INTO ... FROM – vložení
 
-FOR ALL ENTRIES použij pro výběr podle více hodnot.
+UPDATE ... FROM – aktualizace
 
----
-## 🔒 Zamykání objektů (Lock Objects)
-Element	Popis
-SE11 → Lock Object	Definice zamykacího objektu (např. EZDEMO_COURSE).
-ENQUEUE_<objekt>	Uzamkne záznam.
-DEQUEUE_<objekt>	Odemkne záznam.
-SM12	Správa zámků (přehled aktivních locků).
+DELETE FROM ... WHERE – smazání
 
----
-## Doporučení:
+COMMIT WORK / ROLLBACK WORK – potvrzení nebo zrušení transakce
 
-Zamykat před UPDATE/DELETE.
+Tipy:
 
-Po operaci záznam vždy odemknout.
+Používej @ pro host proměnné
 
-V OData zvaž optimistické zamykání (ETag).
+VALUE #( ) pro konstrukci struktury
 
----
-## 🧾 ALV (ABAP List Viewer)
-Cíl	Postup
-Zobrazení dat v tabulce	Použij třídu CL_SALV_TABLE.
-Tvorba instance	CL_SALV_TABLE=>FACTORY( ).
-Zobrazení výsledku	Metoda DISPLAY( ).
-Přidání funkcí (export, layout)	Přes objekty lo_alv->get_functions( ).
+FOR ALL ENTRIES pro hromadné dotazy
 
----
-### Výhody ALV:
+🔒 Zamykání objektů (Lock Objects)
 
-Automatické třídění, filtrování, export.
+Vytvoř lock objekt v SE11 (např. EZDEMO_COURSE)
 
-Umožňuje rychle zobrazit data z interní tabulky.
+Použij:
 
----
-## ⚙️ Eventy v reportu
-Událost	Účel
-INITIALIZATION	Nastavení výchozích hodnot.
-AT SELECTION-SCREEN	Kontrola vstupů.
-START-OF-SELECTION	Spuštění hlavní logiky.
-END-OF-SELECTION	Výpis výsledků.
-TOP-OF-PAGE	Hlavička při tisku nebo výpisu.
-AT LINE-SELECTION	Reakce na dvojklik v seznamu.
-##🧍‍♂️ AUTHORITY-CHECK
-Příkaz	Význam
-AUTHORITY-CHECK OBJECT 'S_TABU_NAM' ID 'TABLE' FIELD 'ZDEMO_COURSE'	Ověří oprávnění k tabulce.
-SY-SUBRC = 0	Oprávnění existuje.
-SY-SUBRC <> 0	Přístup zamítnut.
+ENQUEUE_<objekt> – uzamkne záznam
 
+DEQUEUE_<objekt> – odemkne záznam
 
-### Tipy:
+Sleduj zámky v SM12
 
-Autorizaci kontroluj před CRUD operacemi.
+Doporučení:
 
-Můžeš použít i vlastní autorizační objekty (definované v SU21).
+Zamykat před UPDATE nebo DELETE
 
----
-## 🌐 SEGW (SAP Gateway Builder)
-Krok	Popis
-1. Vytvoř projekt	Např. ZDEMO_COURSE_SRV.
-2. Definuj Entity Type	Odpovídá tabulce (např. Course).
-3. Definuj Entity Set	Kolekce entit (např. Courses).
-4. Generuj runtime objekty	Vytvoří MPC a DPC třídy.
-5. Implementuj CRUD v DPC_EXT	GET_ENTITYSET, GET_ENTITY, CREATE_ENTITY, UPDATE_ENTITY, DELETE_ENTITY.
-6. Aktivuj službu v /IWFND/MAINT_SERVICE	Umožní volání OData API.
-7. Testuj v Gateway Clientu	/IWFND/GW_CLIENT nebo Postman.
+Po operaci vždy záznam odemknout
 
----
-## 🧱 EDM (Entity Data Model)
-Termín	Význam
-Entity Type	Struktura dat (např. kurz).
-Entity Set	Kolekce entit stejného typu.
-Property	Jednotlivé pole (atribut).
-Key Property	Klíčová vlastnost entity.
-Association / Navigation Property	Vztah mezi entitami.
+V OData použij ETag (optimistické zamykání)
 
----
-## 🌍 OData CRUD operace
-HTTP metoda	Popis	Odpovídající ABAP metoda
-GET	Čtení dat	GET_ENTITYSET, GET_ENTITY
-POST	Vytvoření nového záznamu	CREATE_ENTITY
-PATCH / PUT	Aktualizace existujícího záznamu	UPDATE_ENTITY
-DELETE	Smazání záznamu	DELETE_ENTITY
+🧾 ALV (ABAP List Viewer)
 
----
-## Doporučení:
+Zobrazení dat: CL_SALV_TABLE=>FACTORY()
 
-Používej /IWBEP/CX_MGW_BUSI_EXCEPTION pro business chyby.
+Výpis dat: DISPLAY()
 
-Měj správně vyplněné er_entity v odpovědi.
+Volitelné funkce: lo_alv->get_functions()
 
-Validuj vstupy (ID, formát, autoritu).
+Výhody:
 
----
-## 🧠 Bonus: Debugging & Testing
-Nástroj	Použití
-/IWFND/GW_CLIENT	Testování OData služeb.
-SE80 / ADT Debugger	Ladění ABAP logiky.
-SM12	Kontrola zámků.
-ST05 / SAT	Analýza SQL výkonu.
-ABAP Unit (SE80)	Testování business logiky.
+Automatické třídění, filtrování, export
 
----
-## 🧾 Shrnutí
-Oblast	Hlavní příkazy / nástroje
-Selection Screen	PARAMETERS, SELECT-OPTIONS, AT SELECTION-SCREEN
-Databáze	SELECT, INSERT, UPDATE, DELETE, COMMIT WORK
-Zamykání	ENQUEUE_..., DEQUEUE_..., SM12
-ALV	CL_SALV_TABLE=>FACTORY(), DISPLAY()
-Autorizace	AUTHORITY-CHECK
-SEGW / OData	CRUD metody v DPC_EXT
-Eventy	START-OF-SELECTION, END-OF-SELECTION, AT LINE-SELECTION
+Rychlé zobrazení tabulkových dat
+
+⚙️ Eventy v reportu
+
+INITIALIZATION – výchozí hodnoty
+
+AT SELECTION-SCREEN – kontrola vstupů
+
+START-OF-SELECTION – hlavní logika
+
+END-OF-SELECTION – výstup dat
+
+TOP-OF-PAGE – hlavička tisku
+
+AT LINE-SELECTION – reakce na klik
+
+🧍‍♂️ AUTHORITY-CHECK
+
+AUTHORITY-CHECK OBJECT 'S_TABU_NAM' ID 'TABLE' FIELD 'ZDEMO_COURSE'
+
+SY-SUBRC = 0 → oprávnění existuje
+
+SY-SUBRC <> 0 → přístup zamítnut
+
+Tipy:
+
+Kontroluj přístup před CRUD operacemi
+
+Vlastní autorizační objekty lze vytvořit v SU21
+
+🌐 SEGW (SAP Gateway Builder)
+
+Vytvoř projekt (např. ZDEMO_COURSE_SRV)
+
+Definuj Entity Type (např. Course)
+
+Definuj Entity Set (Courses)
+
+Generuj runtime objekty (MPC/DPC)
+
+Implementuj CRUD v DPC_EXT (GET, POST, PATCH, DELETE)
+
+Aktivuj službu v /IWFND/MAINT_SERVICE
+
+Testuj pomocí /IWFND/GW_CLIENT nebo Postman
+
+🧱 EDM (Entity Data Model)
+
+Entity Type – struktura dat (např. kurz)
+
+Entity Set – kolekce entit stejného typu
+
+Property – atribut
+
+Key Property – klíč entity
+
+Association – vztah mezi entitami
+
+🌍 OData CRUD operace
+
+GET → čtení dat → GET_ENTITYSET, GET_ENTITY
+
+POST → vytvoření záznamu → CREATE_ENTITY
+
+PATCH/PUT → aktualizace → UPDATE_ENTITY
+
+DELETE → smazání záznamu → DELETE_ENTITY
+
+Doporučení:
+
+Používej /IWBEP/CX_MGW_BUSI_EXCEPTION pro business chyby
+
+Vyplňuj er_entity při návratu
+
+Validuj vstupní data (ID, formát, autoritu)
+
+🧠 Bonus: Debugging & Testing
+
+/IWFND/GW_CLIENT – testování OData služeb
+
+SE80 / ADT Debugger – ladění logiky
+
+SM12 – kontrola zámků
+
+ST05 / SAT – výkon SQL
+
+ABAP Unit – testování logiky
+
+🧾 Shrnutí
+
+Selection Screen: PARAMETERS, SELECT-OPTIONS, AT SELECTION-SCREEN
+
+Databáze: SELECT, INSERT, UPDATE, DELETE, COMMIT WORK
+
+Zamykání: ENQUEUE_..., DEQUEUE_..., SM12
+
+ALV: CL_SALV_TABLE=>FACTORY(), DISPLAY()
+
+Autorizace: AUTHORITY-CHECK
+
+SEGW / OData: CRUD metody v DPC_EXT
+
+Eventy: START-OF-SELECTION, END-OF-SELECTION, AT LINE-SELECTION
